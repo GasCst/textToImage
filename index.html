@@ -2,7 +2,6 @@
 <html lang="it">
 <head>
     <meta http-equiv="Permissions-Policy" content="accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()">
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text to Image</title>
@@ -11,15 +10,28 @@
 <body>
     <div class="container">
         <h1>Genera Immagini da Testo</h1>
-        <textarea id="textInput" placeholder="Descrivi l'immagine..."></textarea>
+
+        <!-- Input per il prompt -->
+        <textarea id="promptInput" placeholder="Descrivi l'immagine..."></textarea>
+
+        <!-- Input per la API Key -->
+        <input type="password" id="apiKeyInput" placeholder="Inserisci API Key">
+        <button id="saveApiKey">Salva API Key</button>
+
+        <!-- Bottone per generare l'immagine -->
         <button id="generateBtn">Genera Immagine</button>
+
+        <!-- Area di output -->
         <div id="output">
             <img id="generatedImage" src="" alt="Immagine generata" style="display: none;">
         </div>
+
         <p id="status"></p>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
