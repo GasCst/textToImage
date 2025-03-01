@@ -1,21 +1,28 @@
 document.addEventListener("DOMContentLoaded", () => {
     const generateBtn = document.getElementById("generateBtn");
     const saveApiKeyBtn = document.getElementById("saveApiKey");
+    const apiKeyInput = document.getElementById("apiKeyInput");
+
+    if (!saveApiKeyBtn || !apiKeyInput) {
+        console.error("Elementi per la API Key non trovati!");
+        return;
+    }
 
     // Salva l'API key nel localStorage
     saveApiKeyBtn.addEventListener("click", () => {
-        const apiKey = document.getElementById("apiKeyInput").value;
+        const apiKey = apiKeyInput.value.trim();
         if (!apiKey) {
             alert("Inserisci una API Key valida!");
             return;
         }
         localStorage.setItem("apiKey", apiKey);
+        console.log("API Key salvata:", localStorage.getItem("apiKey"));
         alert("API Key salvata con successo!");
     });
 
     // Genera l'immagine
     generateBtn.addEventListener("click", async () => {
-        const prompt = document.getElementById("promptInput").value;
+        const prompt = document.getElementById("promptInput").value.trim();
         const apiKey = localStorage.getItem("apiKey");
 
         if (!prompt) {
@@ -41,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             if (!response.ok) {
-                throw new Error("Errore nella generazione dell'immagine!");
+                throw new Error("Errore nella generazione dell'immagine! Codice: " + response.status);
             }
 
             const data = await response.blob();
@@ -53,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("status").innerText = "Immagine generata con successo!";
         } catch (error) {
             document.getElementById("status").innerText = "Errore nella generazione dell'immagine!";
-            console.error("Errore:", error);
+            console.error("Errore durante la richiesta:", error);
         }
     });
 });
